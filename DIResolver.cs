@@ -2,8 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Context;
-using SkyscraperThrottlingLambdaHelper.Extensions;
-using SkyscraperThrottlingLambdaHelper.Helper;
 using SkyscraperThrottlingLambdaHelper.RMQHelper;
 
 namespace SkyscraperThrottlingLambdaHelper
@@ -15,7 +13,6 @@ namespace SkyscraperThrottlingLambdaHelper
 
         public void ResolveServices()
         {
-            ConfigHelper.SetAppSettingsConfig();
             var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("/tmp/appsettings.json", optional: false, reloadOnChange: true)
@@ -23,7 +20,6 @@ namespace SkyscraperThrottlingLambdaHelper
             _config = builder.Build();
 
             var serviceCollection = new ServiceCollection();
-
 
             serviceCollection
                 .AddScoped(e => SetLogger())
